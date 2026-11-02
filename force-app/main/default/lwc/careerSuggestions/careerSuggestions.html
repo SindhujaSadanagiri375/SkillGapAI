@@ -1,0 +1,70 @@
+<template>
+  <lightning-card title="Career Suggestions" icon-name="standard:work">
+    <div class="career-container">
+      <p class="career-subtitle">
+        Explore roles that match your current skills and see what to develop
+        next.
+      </p>
+
+      <template lwc:if={hasCareers}>
+        <div class="career-grid">
+          <template for:each={suggestedCareers} for:item="career">
+            <article key={career.role} class="career-card">
+              <div class="career-card-header">
+                <h3>{career.role}</h3>
+                <span class="match-badge">{career.matchLabel}</span>
+              </div>
+
+              <p class="career-description">{career.description}</p>
+
+              <div class="match-section">
+                <div class="match-header">
+                  <span>Skill match</span>
+                  <strong>{career.matchPercentage}%</strong>
+                </div>
+                <div
+                  class="match-track"
+                  role="progressbar"
+                  aria-label={career.role}
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow={career.matchPercentage}
+                >
+                  <div class="match-fill" style={career.matchStyle}></div>
+                </div>
+              </div>
+
+              <div class="career-skills">
+                <h4>Core skills</h4>
+                <template for:each={career.skills} for:item="skill">
+                  <span key={skill} class="skill-tag"> {skill} </span>
+                </template>
+              </div>
+
+              <template lwc:if={career.hasMissingSkills}>
+                <div class="missing-skills">
+                  <h4>Skills to develop</h4>
+                  <template for:each={career.missingSkills} for:item="skill">
+                    <span key={skill}>{skill}</span>
+                  </template>
+                </div>
+              </template>
+
+              <template lwc:else>
+                <p class="ready-message">
+                  Your current skills meet this role's suggested requirements.
+                </p>
+              </template>
+            </article>
+          </template>
+        </div>
+      </template>
+
+      <template lwc:else>
+        <p class="empty-message">
+          Career suggestions are not available right now.
+        </p>
+      </template>
+    </div>
+  </lightning-card>
+</template>

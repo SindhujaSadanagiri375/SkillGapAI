@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category__c</fullName>
+    <label>Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Programming</fullName>
+                <default>false</default>
+                <label>Programming</label>
+            </value>
+            <value>
+                <fullName>Database</fullName>
+                <default>false</default>
+                <label>Database</label>
+            </value>
+            <value>
+                <fullName>Productivity</fullName>
+                <default>false</default>
+                <label>Productivity</label>
+            </value>
+            <value>
+                <fullName>Communication</fullName>
+                <default>false</default>
+                <label>Communication</label>
+            </value>
+            <value>
+                <fullName>Data Analytics</fullName>
+                <default>false</default>
+                <label>Data Analytics</label>
+            </value>
+            <value>
+                <fullName>Testing</fullName>
+                <default>false</default>
+                <label>Testing</label>
+            </value>
+            <value>
+                <fullName>Salesforce</fullName>
+                <default>false</default>
+                <label>Salesforce</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

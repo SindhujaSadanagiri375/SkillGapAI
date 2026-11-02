@@ -1,0 +1,11 @@
+.sf/
+.sfdx/
+node_modules/
+.env
+.env.*
+!.env.example
+coverage/
+*.log
+.DS_Store
+
+.vscode/

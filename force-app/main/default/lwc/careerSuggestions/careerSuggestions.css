@@ -1,0 +1,160 @@
+
+.career-container {
+    background: #f4f7fb;
+    padding: 24px;
+    border-radius: 14px;
+    margin: 24px 0;
+}
+
+.career-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 12px;
+}
+
+.career-title {
+    font-size: 21px;
+    font-weight: 800;
+    color: #16325c;
+    margin-bottom: 8px;
+}
+
+.career-subtitle {
+    font-size: 14px;
+    color: #526477;
+}
+
+.career-icon {
+    font-size: 36px;
+}
+
+.career-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.career-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    border-top: 4px solid #0176d3;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.career-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.career-card-header h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #16325c;
+}
+
+.match-badge {
+    background: #e4f3ff;
+    color: #075a9e;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.career-description {
+    color: #526477;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.match-section {
+    margin-bottom: 20px;
+}
+
+.match-header {
+    display: flex;
+    justify-content: space-between;
+    color: #16325c;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.match-header strong {
+    color: #0176d3;
+    font-size: 18px;
+}
+
+.match-track {
+    height: 10px;
+    background: #e5eaf0;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.match-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #0176d3, #2eaa70);
+    border-radius: 20px;
+}
+
+.career-skills,
+.missing-skills {
+    margin-top: 16px;
+}
+
+.career-skills h4,
+.missing-skills h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #16325c;
+    margin-bottom: 10px;
+}
+
+.skill-tag,
+.missing-skills span {
+    display: inline-block;
+    background: #eef4fb;
+    color: #16325c;
+    padding: 7px 10px;
+    border-radius: 6px;
+    margin: 0 6px 8px 0;
+    font-size: 12px;
+}
+
+.missing-skills span {
+    background: #fff0c2;
+    color: #8a5a00;
+}
+
+.ready-message {
+    color: #087443;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 16px;
+}
+
+.empty-message {
+    background: #ffffff;
+    padding: 24px;
+    text-align: center;
+    border-radius: 10px;
+    color: #526477;
+}
+
+@media screen and (max-width: 700px) {
+    .career-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .career-container {
+        padding: 14px;
+    }
+}

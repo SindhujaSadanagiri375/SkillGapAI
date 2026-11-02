@@ -1,0 +1,97 @@
+<template>
+  <lightning-card title="Career Development Roadmap" icon-name="standard:task">
+    <div class="roadmap-container">
+      <header class="roadmap-header">
+        <div>
+          <h2 class="roadmap-title">Your learning plan</h2>
+          <p class="roadmap-subtitle">
+            Learning tasks and recommended steps for {targetRole}.
+          </p>
+        </div>
+      </header>
+
+      <section class="learning-tasks" aria-label="Existing learning tasks">
+        <h3 class="section-title">Your Learning Tasks</h3>
+
+        <template lwc:if={hasTaskError}>
+          <p class="task-error" role="alert">{taskError}</p>
+        </template>
+        <template lwc:elseif={hasLearningTasks}>
+          <ul class="learning-task-list">
+            <template for:each={learningTasks} for:item="task">
+              <li key={task.id} class="learning-task">
+                <div class="task-heading">
+                  <h4>{task.name}</h4>
+                  <span class={task.statusClass}> {task.status} </span>
+                </div>
+                <template lwc:if={task.skillName}>
+                  <p class="task-skill">Skill: {task.skillName}</p>
+                </template>
+                <template lwc:if={task.description}>
+                  <p class="task-description">{task.description}</p>
+                </template>
+                <template lwc:if={task.dueDate}>
+                  <p class={task.dueDateClass}>
+                    <template lwc:if={task.isOverdue}> Overdue: </template>
+                    <template lwc:else> Due: </template>
+                    <lightning-formatted-date-time
+                      value={task.dueDate}
+                      year="numeric"
+                      month="short"
+                      day="2-digit"
+                      time-zone="UTC"
+                    >
+                    </lightning-formatted-date-time>
+                  </p>
+                </template>
+              </li>
+            </template>
+          </ul>
+        </template>
+        <template lwc:else>
+          <p class="empty-roadmap">
+            No learning tasks have been added for this student yet.
+          </p>
+        </template>
+      </section>
+
+      <section class="roadmap-steps" aria-label="Recommended roadmap steps">
+        <h3 class="section-title">Recommended Next Steps</h3>
+        <template lwc:if={hasRoadmap}>
+          <ol class="roadmap-timeline">
+            <template for:each={roadmapSteps} for:item="step">
+              <li key={step.id} class="roadmap-step">
+                <span class="step-number">{step.stepNumber}</span>
+                <article class="step-card">
+                  <div class="step-header">
+                    <h4>{step.skillName}</h4>
+                    <span class="priority-label">
+                      {step.priority} priority
+                    </span>
+                  </div>
+                  <p class="step-description">{step.description}</p>
+                  <div class="step-details">
+                    <span>Stage: {step.stage} | {step.gapLabel}</span>
+                  </div>
+                  <template lwc:if={step.resourceUrl}>
+                    <a
+                      class="step-action"
+                      href={step.resourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {step.resourceTitle}
+                    </a>
+                  </template>
+                </article>
+              </li>
+            </template>
+          </ol>
+        </template>
+        <template lwc:else>
+          <p class="empty-roadmap">{noRoadmapMessage}</p>
+        </template>
+      </section>
+    </div>
+  </lightning-card>
+</template>

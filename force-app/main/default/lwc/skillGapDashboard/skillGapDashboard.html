@@ -1,0 +1,187 @@
+<template>
+  <lightning-card title="SkillGap AI Dashboard" icon-name="standard:education">
+    <div class="dashboard-container">
+      <template lwc:if={error}>
+        <div class="error-message">{error}</div>
+      </template>
+
+      <!-- Student Overview -->
+      <section class="student-section">
+        <h2 class="section-title">Student Overview</h2>
+
+        <template lwc:if={hasStudents}>
+          <lightning-combobox
+            name="student"
+            label="Select Student"
+            value={selectedStudentId}
+            options={studentOptions}
+            onchange={handleStudentChange}
+          >
+          </lightning-combobox>
+        </template>
+
+        <template lwc:else>
+          <p>No student profiles found.</p>
+        </template>
+      </section>
+
+      <template lwc:if={hasStudents}>
+        <!-- Career Readiness -->
+        <template lwc:if={hasReadinessScore}>
+          <section class="readiness-card">
+            <p class="card-label">Overall Career Readiness</p>
+            <h1 class="score">{readinessScore}%</h1>
+            <p class="card-subtitle">Your current skill readiness</p>
+          </section>
+        </template>
+
+        <c-student-analytics skills={skills} readiness-score={readinessScore}>
+        </c-student-analytics>
+
+        <c-career-suggestions recommendations={recommendations}>
+        </c-career-suggestions>
+
+        <!-- Learning Progress Tracker -->
+        <section class="progress-tracker-section">
+          <h2 class="section-title">Learning Progress Tracker</h2>
+
+          <div class="progress-summary">
+            <div class="progress-summary-card">
+              <h3>{totalSkills}</h3>
+              <p>Total Skills</p>
+            </div>
+
+            <div class="progress-summary-card completed-card">
+              <h3>{completedSkills}</h3>
+              <p>Completed Skills</p>
+            </div>
+
+            <div class="progress-summary-card pending-card">
+              <h3>{pendingSkills}</h3>
+              <p>Pending Skills</p>
+            </div>
+          </div>
+
+          <div class="overall-progress-card">
+            <div class="overall-progress-header">
+              <h3>Overall Skill Proficiency</h3>
+              <span>{overallProgress}%</span>
+            </div>
+
+            <div class="progress-track">
+              <div class="progress-fill" style={overallProgressStyle}></div>
+            </div>
+
+            <p class="progress-caption">
+              Average current skill proficiency compared with target levels.
+            </p>
+          </div>
+        </section>
+
+        <!-- Skill Gap Analysis -->
+        <section class="skills-section">
+          <h2 class="section-title">Skill Gap Analysis</h2>
+
+          <template lwc:if={hasSkills}>
+            <template for:each={skills} for:item="skill">
+              <div key={skill.Id} class="skill-card">
+                <h3 class="skill-name">{skill.skillName}</h3>
+
+                <div class="skill-details">
+                  <span>
+                    Current: {skill.Current_Level__c} | Target:
+                    {skill.Target_Level__c}
+                  </span>
+                </div>
+
+                <div class="progress-track">
+                  <div class="progress-fill" style={skill.progressStyle}></div>
+                </div>
+
+                <p class="skill-status">{skill.gapMessage}</p>
+              </div>
+            </template>
+          </template>
+
+          <template lwc:else>
+            <p>No skill records found.</p>
+          </template>
+        </section>
+
+        <!-- Personalized Recommendations -->
+        <section class="recommendations-section">
+          <h2 class="section-title">Personalized Skill Recommendations</h2>
+
+          <template lwc:if={hasRecommendations}>
+            <template for:each={recommendations} for:item="item">
+              <div key={item.skillName} class="recommendation-card">
+                <div class="recommendation-header">
+                  <h3 class="skill-name">{item.skillName}</h3>
+
+                  <span class={item.priorityClass}> {item.priority} </span>
+                </div>
+
+                <p>Current Level: {item.currentLevel}</p>
+                <p>Required Level: {item.requiredLevel}</p>
+                <p>Levels to improve: {item.gap}</p>
+
+                <template lwc:if={item.gap}>
+                  <p class="recommendation-message">
+                    Focus on improving this skill to become more job-ready.
+                  </p>
+                </template>
+
+                <template lwc:else>
+                  <p class="recommendation-message">
+                    Excellent! You have achieved this skill target.
+                  </p>
+                </template>
+
+                <!-- Learning Resources -->
+                <div class="learning-resource">
+                  <p class="resource-heading">Recommended Learning Resource</p>
+
+                  <a
+                    href={item.resourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {item.resourceTitle}
+                  </a>
+                </div>
+              </div>
+            </template>
+          </template>
+
+          <template lwc:else>
+            <p>No recommendations available for this student's target role.</p>
+          </template>
+        </section>
+
+        <c-career-roadmap
+          student-id={selectedStudentId}
+          target-role={selectedTargetRole}
+          recommendations={recommendations}
+        >
+        </c-career-roadmap>
+
+        <!-- Save Analysis -->
+        <section class="action-section">
+          <lightning-button
+            label="Save Analysis"
+            variant="brand"
+            icon-name="utility:save"
+            onclick={handleSaveAnalysis}
+            disabled={isSaving}
+          >
+          </lightning-button>
+
+          <template lwc:if={isSaving}>
+            <lightning-spinner alternative-text="Saving analysis" size="small">
+            </lightning-spinner>
+          </template>
+        </section>
+      </template>
+    </div>
+  </lightning-card>
+</template>

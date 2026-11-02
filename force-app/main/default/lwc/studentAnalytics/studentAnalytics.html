@@ -1,0 +1,116 @@
+<template>
+  <lightning-card title="Student Analytics" icon-name="standard:metrics">
+    <div class="analytics">
+      <section class="readiness-panel" aria-label="Career readiness">
+        <div class="readiness-heading">
+          <div>
+            <p class="eyebrow">Career readiness</p>
+            <h2>{readinessCategory}</h2>
+          </div>
+          <p class="readiness-score">
+            <span>{readinessScoreValue}</span
+            ><span class="percent-sign">%</span>
+          </p>
+        </div>
+        <div
+          class="progress-track readiness-track"
+          role="progressbar"
+          aria-label="Career readiness"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow={readinessScoreValue}
+        >
+          <div
+            class="progress-fill readiness-fill"
+            style={readinessStyle}
+          ></div>
+        </div>
+      </section>
+
+      <section class="summary-grid" aria-label="Skill summary">
+        <article class="summary-card">
+          <p class="summary-value">{totalSkills}</p>
+          <p class="summary-label">Total skills</p>
+        </article>
+        <article class="summary-card completed-card">
+          <p class="summary-value">{completedSkills}</p>
+          <p class="summary-label">Completed</p>
+        </article>
+        <article class="summary-card pending-card">
+          <p class="summary-value">{pendingSkills}</p>
+          <p class="summary-label">In progress</p>
+        </article>
+        <article class="summary-card">
+          <p class="summary-value">{averageProficiency}%</p>
+          <p class="summary-label">Average proficiency</p>
+        </article>
+      </section>
+
+      <section class="progress-section" aria-label="Overall skill completion">
+        <div class="section-heading">
+          <h2>Skill completion</h2>
+          <p>{completionPercentage}%</p>
+        </div>
+        <div
+          class="progress-track"
+          role="progressbar"
+          aria-label="Skill completion"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow={completionPercentage}
+        >
+          <div
+            class="progress-fill completion-fill"
+            style={completionStyle}
+          ></div>
+        </div>
+      </section>
+
+      <section class="highlights" aria-label="Skill highlights">
+        <article class="highlight-card">
+          <p class="eyebrow">Strongest skill</p>
+          <p class="highlight-value">{strongestSkill}</p>
+        </article>
+        <article class="highlight-card">
+          <p class="eyebrow">Needs most focus</p>
+          <p class="highlight-value">{weakestSkill}</p>
+        </article>
+      </section>
+
+      <section class="skills-section" aria-label="Skill progress">
+        <div class="section-heading">
+          <h2>Skill progress</h2>
+        </div>
+        <template lwc:if={hasSkills}>
+          <ul class="skill-list">
+            <template for:each={skillRows} for:item="skill">
+              <li key={skill.id} class="skill-row">
+                <div class="skill-heading">
+                  <h3>{skill.name}</h3>
+                  <span>{skill.progressPercentage}%</span>
+                </div>
+                <div
+                  class="progress-track"
+                  role="progressbar"
+                  aria-label={skill.name}
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow={skill.progressPercentage}
+                >
+                  <div
+                    class="progress-fill skill-fill"
+                    style={skill.progressStyle}
+                  ></div>
+                </div>
+                <p class="skill-details">{skill.summary}</p>
+              </li>
+            </template>
+          </ul>
+        </template>
+        <template lwc:else>
+          <p class="empty-state">No skill data is available yet.</p>
+        </template>
+      </section>
+    </div>
+  </lightning-card>
+</template>
