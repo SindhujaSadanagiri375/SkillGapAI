@@ -55,3 +55,17 @@ Transform your ideas into custom Lightning apps that extend CRM workflows direct
 - [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/)
 - [Salesforce CLI Plugin Development Guide](https://developer.salesforce.com/docs/platform/salesforce-cli-plugin/guide/conceptual-overview.html)
 - [Salesforce VS Code Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
+
+## SkillGap AI Showcase Website
+
+The responsive project showcase is in the [`website/`](website/) folder. Preview it locally with `python -m http.server 8000 --directory website`, then open [http://localhost:8000](http://localhost:8000). No dependencies or build step are required.
+
+### Live Website
+
+**URL:** _Not published yet — add the GitHub Pages URL here after deployment._
+
+### Publish with GitHub Pages
+
+The included [GitHub Actions workflow](.github/workflows/deploy-website.yml) deploys only the `website/` folder. To publish it, push the repository to GitHub, then open **Settings → Pages** and select **GitHub Actions** as the build and deployment source. A push to `main` that changes the website (or a manual run of **Deploy SkillGap AI website** on the Actions tab) will publish it. Find the resulting URL in **Settings → Pages** or the completed workflow.
+
+The showcase uses fictional demo data and is not connected to a live Salesforce org. The GitHub Pages workflow does not deploy Salesforce metadata or change repository settings.
